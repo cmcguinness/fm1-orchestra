@@ -9,6 +9,11 @@ tools/, tests/) and `songs/NAME/` (everything for one song: NAME.py,
 NAME.mid, NAME-slides.py, NAME.mp4, CREDITS.md, scores; gitignored
 `sources/` and `build/`). `local/` (gitignored) keeps machine-only files:
 non-redistributable MIDI (sugar plum, Kunst der Fuge) and fm1-bank.json.
+`songs-wip/NAME/` (gitignored, 2026-11-22) holds songs in progress; fm1ctl
+searches it after songs/. Now: gymnopedie-1 (Mutopia PD source, built by
+build_gymnopedie.py; SOFT FLUTE melody, E.PIANO 1 chords and bass, getting
+there) and jingle-bells (shelved: band, Switched-On, all-MOOGER and
+all-E.PIANO versions all rejected).
 Run from the root: `.venv/bin/python fm1-orchestra/fm1ctl.py ...`; `pytest`
 uses pytest.ini. Videos: `fm1ctl.py video NAME`. Entries below predate the
 move and use the old paths (songs/X.py, scores/, videos/, sheet-music/).

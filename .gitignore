@@ -14,3 +14,6 @@ __pycache__/
 # stems, slide images). Regenerable or downloadable; see each CREDITS.md.
 /songs/*/sources/
 /songs/*/build/
+
+# Songs being worked on: not yet ready for the repository.
+/songs-wip/

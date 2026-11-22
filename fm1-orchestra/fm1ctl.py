@@ -26,6 +26,7 @@ CODE = Path(__file__).resolve().parent          # fm1-orchestra/
 ROOT = CODE.parent                              # the repository: fm1-orchestra/ and songs/
 DEFAULT_LIBRARY = CODE / "sysex"
 DEFAULT_SONGS = ROOT / "songs"
+WIP_SONGS = ROOT / "songs-wip"               # works in progress, gitignored
 # What the Mac last loaded into the FM-1's song bank (it can't be read back).
 LOCAL = ROOT / "local"                          # gitignored: files that stay on this machine
 BANK_MANIFEST = LOCAL / "fm1-bank.json"         # what was last sent to the unit's song bank
@@ -92,7 +93,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--library", type=Path, default=DEFAULT_LIBRARY,
                    help="folder of DX7 .syx banks (default: fm1-orchestra/sysex)")
     p.add_argument("--songs", type=Path, default=DEFAULT_SONGS,
-                   help="folder of song folders, one per song (default: songs)")
+                   help="folder of song folders, one per song (default: songs, plus "
+                        "songs-wip for works in progress)")
     p.add_argument("--fx-channel", type=_channel, default=16,
                    help="the FM-1's Effect Ch (GLO page) for effect CCs (default: %(default)s)")
     sub = p.add_subparsers(dest="command", required=True)
@@ -492,15 +494,33 @@ def _remix(args, song: song_mod.Song) -> None:
         sys.exit(str(exc))
 
 
+def _song_folders(args) -> list[Path]:
+    """Where song folders live: --songs, plus songs-wip/ when --songs is the default."""
+    folders = [args.songs]
+    if args.songs == DEFAULT_SONGS and WIP_SONGS.is_dir():
+        folders.append(WIP_SONGS)
+    return folders
+
+
+def _song_files(args) -> list[Path]:
+    return [path for folder in _song_folders(args) for path in song_mod.song_files(folder)]
+
+
+def _song_folder(args, name: str) -> Path:
+    """The folder holding song NAME (the first that has it, else --songs)."""
+    return next((f for f in _song_folders(args) if song_mod.song_path(f, name).is_file()),
+                args.songs)
+
+
 def cmd_song(args) -> None:
     _check_record(args)
     if args.stems and not args.record:
         sys.exit("--stems needs --record FILE (the mix)")
     if args.remix and (not args.record or args.stems):
         sys.exit("--remix needs --record FILE (the mix to rewrite) and no --stems")
-    path = song_mod.song_path(args.songs, args.name)
+    path = song_mod.song_path(_song_folder(args, args.name), args.name)
     if not path.is_file():
-        names = ", ".join(p.stem for p in song_mod.song_files(args.songs)) or "none"
+        names = ", ".join(p.stem for p in _song_files(args)) or "none"
         sys.exit(f"no song module {path}; songs: {names}")
     if args.end is not None and args.end <= args.start:
         sys.exit("--end must be after --start")
@@ -518,7 +538,7 @@ def cmd_song(args) -> None:
 
 def cmd_load_bank(args) -> None:
     songs = []
-    for path in song_mod.song_files(args.songs):
+    for path in _song_files(args):
         try:
             songs.append(song_mod.load_module(path)[0])
         except Exception as exc:
@@ -557,7 +577,7 @@ def cmd_load_bank(args) -> None:
 
 def cmd_video(args) -> None:
     from fm1 import video
-    folder = args.songs / args.name
+    folder = _song_folder(args, args.name) / args.name
     spec = folder / f"{args.name}-slides.py"
     audio = args.audio or folder / "build" / f"{args.name}.wav"
     out = args.out or folder / f"{args.name}.mp4"
@@ -573,7 +593,7 @@ def cmd_video(args) -> None:
 
 
 def cmd_songs(args) -> None:
-    for path in song_mod.song_files(args.songs):
+    for path in _song_files(args):
         try:
             song, _ = song_mod.load_module(path)
             present = "" if song.midi_path.is_file() else "  (MIDI file missing)"

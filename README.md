@@ -347,6 +347,9 @@ songs/                 one folder per song, with everything specific to it
   aquarium/            aquarium.py, .mid, -slides.py, .mp4, CREDITS.md
   brandenburg2/, brandenburg3/ (with its corrected score), clair-de-lune/,
   toccata-and-fugue/
+songs-wip/             gitignored: songs in progress, laid out like songs/;
+                       fm1ctl finds them too (song, songs, load-bank, video).
+                       Move a folder into songs/ when it's ready to publish.
 local/                 gitignored: files that stay on this machine (MIDI files
                        we may not redistribute, the record of the song bank)
 ```
