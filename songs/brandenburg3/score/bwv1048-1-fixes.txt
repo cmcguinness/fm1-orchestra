@@ -1,0 +1,266 @@
+# Hand corrections to the Audiveris OMR of Brandenburg 3/I (see ../build_bwv1048.py).
+# Parts: 0-2 Violino I-III, 3-5 Viola I-III, 6-8 Violoncello I-III, 9 Continuo.
+# Every 'fix' was read off the 200 dpi page images of IMSLP #57477 (pages 1-45).
+edition 0 0-9 | written in unison with Violino II/III (identical staves); the MIDI has Violin I an octave higher
+edition 5 0-9 | written in unison with Viola I/II (identical staves); the MIDI has Viola III an octave lower in most of these bars
+edition 3 3 | first note F#4 (alto clef, top space); the MIDI has G4
+edition 4 3 | first note F#4, as Viola I; the MIDI has G4
+edition 5 3 | first note F#4, as Viola I; the MIDI has G3
+fix 6 3 | D3:8 D4:16 C#4:16 D4:8 D3:8 D3:8 D4:16 C#4:16 D4:8 F#3:8 | printed sharp on the first C (ledger line), carried to the second; OMR read a B3+C4 chord
+edition 6 3 | last note F#3 (4th line); the MIDI has D3
+edition 7 3 | last note F#3, as Vc I; the MIDI has D3
+edition 8 3 | last note F#3, as Vc I; the MIDI has D3
+fix 9 3 | D3:8 D4:16 C#4:16 D4:8 D3:8 D3:8 D4:16 C#4:16 D4:8 F#3:8 | same as the cellos; sharp printed on the first C, carried; OMR read a B3+C4 chord
+edition 9 3 | last note F#3 (4th line), as the cellos; the MIDI has D3
+edition 3 6 | third note F#4 (G3 G4 F#4 G4 A4 B4 C5 D5); the MIDI has G4
+edition 4 6 | third note F#4, as Viola I; the MIDI has G4
+edition 5 6 | third note F#4, as Viola I; the MIDI has G3 (and is an octave lower)
+edition 3 7 | F#4 eighth on beat 2 and F#4 sixteenth after beat 3 (B4 A4 G4 D4 F#4 G4 F#4 E4 ...); the MIDI has G4 in both places
+edition 4 7 | as Viola I (F#4 twice); the MIDI has G4
+edition 5 7 | as Viola I (F#4 twice); the MIDI has G3 (and is an octave lower)
+edition 1 8 | last two sixteenths D5 C5 (Vln III has B4 A4); the MIDI has B4 B4 here, i.e. its Violin II/III lines are swapped
+edition 2 8 | last two sixteenths B4 A4; the MIDI has D5 C5 (Violin II/III swapped)
+edition 1 9 | D5 B4 A4 B4 (Vln III a third lower); the MIDI has Violin III's notes
+edition 2 9 | B4 G4 F#4 G4; the MIDI has Violin II's notes
+fix 3 9 | r:4 r:8 B4:16 A4:16 B4:8 G4:16 F#4:16 G4:8 r:8 | quarter rest at the start of the bar was missed (B4 on the ledger line)
+fix 7 9 | G2:4 r:4 r:4 r:8 B3:16 A3:16 | two quarter rests printed after G2 (same rhythm as Vc I and III); OMR dropped them
+edition 8 9 | last two sixteenths G3 F#3; the MIDI has D3 C3
+edition 9 9 | G2, quarter rest, half rest; the MIDI adds D3 C3 sixteenths at the end
+edition 9 8 | ends G2 quarter, quarter rest; the MIDI adds a D3 eighth on the last half-beat
+edition 3 10 | first half B3 C4 D4 E4 A3 (alto clef, C4 on the middle line); the MIDI has it an octave higher (B4 C5 D5 E5 A4)
+edition 4 10 | first half B3 C4 D4 E4 A3, as Viola I; the MIDI has it an octave higher
+edition 5 10 | first half B3 C4 D4 E4 A3, as Viola I; the MIDI has it an octave higher and doubles Viola I in the second half
+edition 0 11 | fifth note A5 (on the first ledger line); the MIDI has G5
+edition 2 11 | last sixteenth G5 is printed; the MIDI omits it
+edition 0 17 | fourth note E5 (4th space); the MIDI has F#5
+edition 1 17 | fourth note E5, as Violin I; the MIDI has F#5
+edition 2 17 | fourth note E5, as Violin I; the MIDI has F#5
+fix 3 15 | D4:8 E4:16 F#4:16 E4:8 A4:8 F#4:4 r:4 | closing quarter rest missed (Viola II/III identical)
+edition 6 15 | the sixteenths after beat 3 are D4 C4 B3 C4 B3 A3 with no sharp printed (checked at 4x); the MIDI has C#4
+edition 7 15 | as Violoncello I, C natural (no sharp printed); the MIDI has C#4
+edition 8 15 | D2 eighth then D3 C3 B2 C3 B2 A2, C natural; the MIDI has D3 and the upper-octave line with C#4
+edition 9 15 | as Violoncello III (D2, D3 C3 B2 C3 B2 A2, C natural); the MIDI has D3 and the upper-octave line with C#4
+fix 8 16 | G2:4 r:4 r:4 r:8 B3:16 A3:16 | two quarter rests printed after G2 (as Vc I/II); OMR dropped one
+edition 8 16 | first note G2 (bottom line); the MIDI has G3
+edition 9 16 | first note G2 (bottom line); the MIDI has G3
+edition 9 18 | first note D4 (above the ledger line), as the cellos; the MIDI has D3
+edition 3 22 | last sixteenth G4 (top line, checked at 5x); the MIDI has A4
+edition 3 24 | the forte group starts on E4 (E4 C#4 D4 E4, checked at 4x); the MIDI starts on D4
+fix 8 24 | r:8 D4:16 C#4:16 D4:8 r:8 r:8 D3:16 C#3:16 D3:8 r:8 | the second sixteenth is C#4 with a printed sharp on the ledger line; OMR read a B3+C4 chord
+edition 6 25 | C4 with a printed natural in the second group (D4 C4 D4); the MIDI has C#4
+edition 7 25 | C4 with a printed natural, as Vc I; the MIDI has C#4
+edition 8 25 | second group D4 C4 D4 (upper octave, natural printed), as Vc I; the MIDI has D3 C#3 D3
+edition 9 25 | second group D4 C4 D4 (upper octave, natural printed), as the cellos; the MIDI has D3 C#3 D3
+edition 5 27 | last sixteenth F#3 is printed; the MIDI omits it
+edition 3 28 | fourth eighth B3 (G3 G3 G3 B3); the MIDI has C4
+edition 5 28 | first beat G3 alone; the MIDI adds an F#3 under it
+edition 8 31 | last sixteenth B3 (as Vc I/II); the MIDI has B2
+edition 9 31 | beat 3 is C2 (two ledger lines, checked at 5x); the MIDI has C3
+edition 3 33 | seventh sixteenth of the forte run A4 (G4 B4 A4 C5); the MIDI has G4
+edition 4 33 | forte run D4 C4 D4 E4 D4 G4 F#4 A4 (a fifth below Viola I); the MIDI doubles Viola I
+edition 4 34 | G4 F#4 G4 A4 G4 B4 A4 C5 | B4 A4 B4 C5 B4 C5 B4 A4 (a third below Viola I); the MIDI doubles Viola I
+edition 5 34 | beat 2 is D4 G4 D4 A4; the MIDI has D4 F4 D4 G4
+edition 4 35 | first group G4 A4 G4 F#4 (a third below Viola I); the MIDI doubles Viola I
+fix 9 36 | D3:8( D3:8 D3:8 D3:8) D3:8( D3:8 D3:8) D4:8 | notes were right; the slur over the first four eighths was missed
+edition 9 36 | last eighth D4 (above the ledger line); the MIDI has D3
+edition 7 37 | second half G3 G3 F#3 G3 B3 A3; the MIDI doubles Violoncello I (B3 A3 B3 D4 C4)
+edition 8 37 | second half G3 D3 C3 D3 G3 F#3; the MIDI doubles Violoncello I
+edition 9 37 | four slurred G3 eighths in the second half (the MIDI duplicates the first of them)
+edition 7 38 | first note B3 (space above the staff); the MIDI has D4
+fix 8 38 | E3:8 r:8 r:4 r:4 r:8 G3:8 | the rests are eighth, quarter, quarter, eighth as in Vc I/II; OMR dropped a quarter rest (E3 confirmed at 5x)
+edition 8 38 | first note E3 (space between the D3 and F3 lines, checked at 5x); the MIDI has D4
+fix 5 39 | r:4 r:8 B3:16 A3:16 B3:8 D3:16 C3:16 D3:8 G4:16 F#4:16 | the quarter rest at the start of the bar was missed (D3 on the ledger line below)
+edition 8 40 | last two sixteenths D4 C#4 (ledger line), as Vc I/II; the MIDI has D3 C#4
+edition 9 40 | last two sixteenths D4 C#4 (ledger line), as the cellos; the MIDI has D3 C#4
+edition 2 41 | the bar has sixteen sixteenths (F#4 E4 F#4 G4 F#4 D4 G4 E4 F#4 E4 F#4 G4 F#4 A4 D5 F#5); the MIDI drops the fifth one and is shifted
+edition 4 41 | second half F#4 D4 A3 (a third below Viola I); the MIDI has D4 A3 F#3 (Viola III's notes)
+edition 5 42 | second eighth G3; the MIDI has F#3
+edition 2 43 | last beat G4 A4 eighths only; the MIDI adds G5 sixteenths
+edition 3 44 | the sixteenths on beat 2 are D4 E4 (D4 E4 F#4 D4 E4 F#4 ...); the MIDI has E4 F#4
+edition 4 45 | fourth eighth D4 alone; the MIDI adds an A4 above it
+edition 5 45 | the sixteenth run is B3 G4 F#4 E4 D4 C4 B3 A3; the MIDI omits the F#4
+edition 6 45 | last eighth F#2 (space below the staff, no natural printed); the MIDI has F2
+edition 7 45 | last eighth F#2 (no natural printed); the MIDI has F2
+edition 8 45 | last eighth F#2 (no natural printed); the MIDI has F2
+edition 9 45 | last eighth F#2 (no natural printed); the MIDI has F2
+edition 0 47 | a natural on the first F4 holds for the bar, so every F4 is F natural; the MIDI has F#4 after the first group
+fix 2 47 | @p B4:16( A4:16 B4:8) r:4 B4:16( A4:16 B4:8) r:4 | quarter rest after the first group missed (Violin II has the same rhythm)
+fix 7 47 | G2:4 r:4 G2:4 r:4 | quarter rest after the first G2 missed (Vc I/III, Continuo identical)
+fix 7 48 | G2:4 r:4 G2:4 r:4 | quarter rest after the first G2 missed
+fix 7 49 | G2:4 r:4 G2:4 r:4 | closing quarter rest missed
+fix 3 50 | G3:8( G3:8 G3:8) A3:8 @f A3:16 D5:16 C#5:16 B4:16 A4:16 G4:16 F#4:16 E4:16 | forte run is eight even sixteenths A3 D5 C#5 B4 A4 G4 F#4 E4 (D5 on the second ledger line); OMR read a dotted C5 and lost a note
+fix 6 51 | @p D#2:4 r:4 F#2:4 r:4 | closing quarter rest missed (all four bass staves identical; D#2 below the ledger line, checked at 5x)
+fix 6 52 | A2:4 r:4 A3:4 r:4 | closing quarter rest missed and the quarter rest after A2 was dropped (all four bass staves identical)
+fix 7 51 | @p D#2:4 r:4 F#2:4 r:4 | closing quarter rest missed (all four bass staves identical; D#2 below the ledger line, checked at 5x)
+fix 7 52 | A2:4 r:4 A3:4 r:4 | closing quarter rest missed and the quarter rest after A2 was dropped (all four bass staves identical)
+fix 8 51 | @p D#2:4 r:4 F#2:4 r:4 | closing quarter rest missed (all four bass staves identical; D#2 below the ledger line, checked at 5x)
+fix 8 52 | A2:4 r:4 A3:4 r:4 | closing quarter rest missed and the quarter rest after A2 was dropped (all four bass staves identical)
+fix 9 51 | @p D#2:4 r:4 F#2:4 r:4 | closing quarter rest missed (all four bass staves identical; D#2 below the ledger line, checked at 5x)
+fix 9 52 | A2:4 r:4 A3:4 r:4 | closing quarter rest missed and the quarter rest after A2 was dropped (all four bass staves identical)
+edition 0 53 | F#5 E5 F#5 in both slurred figures; the MIDI has G5 F#5 G5
+fix 6 53 | D#3:4 r:4 B2:4 r:4 | quarter rest after D#3 missed (Vc II/III and Continuo identical)
+edition 3 54 | beat 2 figure G4 F#4 G4 (then E4 D#4 E4); the MIDI has A4 G4 A4
+edition 7 54 | last two sixteenths E3 D#3 (sharp printed); the MIDI has G3 F#3 (Vc I's notes)
+edition 8 54 | last two sixteenths B3 A3; the MIDI has G3 F#3
+edition 9 54 | repeated slurred E3 eighths, ending E3 D#3 sixteenths; the MIDI has only the first E3 and G3 F#3 at the end
+fix 3 55 | r:8 E3:16 F#3:16 G3:8 A3:8 B3:4 r:4 | closing quarter rest missed (Viola II/III identical)
+edition 8 55 | first eighth G3 (just below the top line; Vc I/II and Continuo have E3); the MIDI has E3
+edition 9 55 | second half four slurred B2 eighths; the MIDI doubles the cellos' sixteenths
+edition 1 56 | after the rests D#4 C#4 D#4 B5, as Violin I/III; the MIDI has only the first D#5
+edition 4 56 | first half F#4 E4 F#4 A4 G4 A4 (a third below Viola I); the MIDI doubles Viola I
+fix 6 56 | B2:16( A#2:16 B2:16) C#3:16 B2:16 F#3:16 B2:16 G3:16 B2:16( A#2:16 B2:16) C#3:16 B2:16 A3:16 B2:16 B3:16 | sixteen sixteenths as Vc II/III; OMR lost the first group's slur start and the A#2 sharp and split four notes into a second voice (the A2 and C3 of the third group carry the bar's sharps)
+edition 9 56 | slurred B2 eighths with a final B3; the MIDI doubles the cellos' sixteenths
+edition 0 58 | the piano figure is E5 D#5 E5 (the sharp from beat 2 holds); the MIDI has D5
+edition 4 58 | last eighth F#4; the MIDI has F#5
+edition 5 58 | beat 3 is a G4 quarter, then eighth rest and D#4; the MIDI fills beat 3 with sixteenths
+edition 5 62 | beat 3 quarter D4 (C#4 D4 E4 A3 D4, checked at 3.5x); the MIDI has E4
+edition 7 62 | last eighth A2 (as Vc III and Continuo); the MIDI has A3
+edition 8 62 | last eighth A2; the MIDI has A3
+edition 9 62 | last eighth A2; the MIDI has A3
+edition 8 63 | the sixteenth group is D3 A3 D3 E3 F#3 G3 A3 G3; the MIDI has D4 as its third note
+edition 9 63 | beat 3 quarter D4 (above the ledger line); the MIDI has D3
+fix 3 64 | D5:8 r:8 r:4 r:4 r:8 @f A3:8 | two quarter rests printed (as Viola II/III); OMR dropped them
+edition 3 64 | last eighth A3 (second line, checked at 4x); the MIDI has A4
+edition 9 64 | first note D3 (middle line); the MIDI has D4
+fix 0 68 | A#5:16( G#5:16 A#5:8) r:4 A#5:16( G#5:16 A#5:8) r:4 | quarter rest after the first figure missed (Violin II has the same rhythm)
+edition 0 68 | the figures are A#5 G#5 A#5 (first ledger line, sharps printed); the MIDI has C#6 C6 C#6
+fix 6 68 | E3:4 r:4 E3:4 r:4 | quarter rest after the first E3 missed (all four bass staves identical)
+edition 0 69 | second figure A#5 G#5 A#5 (sharps printed); the MIDI has C#6 C6 C#6
+fix 6 69 | A#2:4 r:4 F#2:4 r:4 | closing quarter rest missed (all four bass staves identical)
+fix 7 69 | A#2:4 r:4 F#2:4 r:4 | closing quarter rest missed
+fix 8 69 | A#2:4 r:4 F#2:4 r:4 | quarter rest after A#2 missed
+fix 0 70 | B5:8 F#5:16 E5:16 F#5:8 B5:16 A#5:16 B5:8 D5:16 C#5:16 D5:8 B5:16 A#5:16 | the sixth note is A#5 on the ledger line with a printed sharp; OMR read a G5+A5 chord
+edition 0 70 | beat 3 figure D5 C#5 D5; the MIDI has B4 A#4 B4
+fix 3 71 | B4:8 D5:16 C#5:16 B4:8 A4:16 G4:16 F#4:8 E4:16 D4:16 C#4:8 A#4:8 | last beat is C#4 and A#4 eighths, both with printed sharps (checked at 3x); OMR read a dotted D4 and pushed the last notes into a second voice
+fix 4 71 | F#4:8 D5:16 C#5:16 B4:8 A4:16 G4:16 F#4:8 E4:16 D4:16 C#4:8 A#4:8 | last beat is C#4 and A#4 eighths, both with printed sharps (checked at 3x); OMR read a dotted D4 and pushed the last notes into a second voice
+fix 5 71 | D4:8 D5:16 C#5:16 B4:8 A4:16 G4:16 F#4:8 E4:16 D4:16 C#4:8 A#4:8 | last beat is C#4 and A#4 eighths, both with printed sharps (checked at 3x); OMR read a dotted D4 and pushed the last notes into a second voice
+fix 0 72 | D5:16 E5:16 D5:16 E5:16 E5:8.t D5:32 E5:32 F#5:8 B5:16 A#5:16 B5:8 F#5:16 E5:16 | notes right; the trill (tr) over the dotted E5 was missed
+edition 0 72 | the trill on E5 is written as a sign; the MIDI realises it with extra notes
+fix 1 72 | D5:16 E5:16 D5:16 E5:16 E5:8.t D5:32 E5:32 F#5:8 B5:16 A#5:16 B5:8 F#5:16 E5:16 | notes right; the trill (tr) over the dotted E5 was missed
+edition 1 72 | the trill on E5 is written as a sign; the MIDI realises it with extra notes
+fix 2 72 | D5:16 E5:16 D5:16 E5:16 E5:8.t D5:32 E5:32 F#5:8 B5:16 A#5:16 B5:8 F#5:16 E5:16 | notes right; the trill (tr) over the dotted E5 was missed
+edition 2 72 | the trill on E5 is written as a sign; the MIDI realises it with extra notes
+fix 2 74 | D4:8 G4:8 F#4:8 F#4:8 D4:4 r:4 | closing quarter rest missed (Violin I/II have the same rhythm)
+fix 3 74 | B4:8 B4:8 F#4:8 F#4:8 F#4:4 r:4 | closing quarter rest missed (checked at 2.8x)
+edition 8 74 | second half B2 D3 C#3 D3 F#3 E3; the MIDI has doubled notes on beat 4
+fix 3 75 | r:8 F#4:16 E4:16 F#4:8 B4:16 A#4:16 B4:8 r:8 r:4 | closing quarter rest missed (Viola II/III have the same rhythm; pitches checked at 3.5x)
+fix 7 75 | B3:8 r:8 r:4 r:4 r:8 B2:16 C#3:16 | rests are eighth, quarter, quarter, eighth as in Vc I/III; OMR dropped a quarter rest
+edition 8 75 | first eighth F#3 alone (4th line, checked at 4x); the MIDI has D3 and F#3
+edition 3 76 | C#5 (sharp printed) as the second sixteenth and A4 eighths after G#4; the MIDI has A#4 in both places
+edition 4 76 | the beat-3 figure is F#4 G#4 F#4 (sharp printed); the MIDI has G4 natural
+fix 0 77 | D5:8. C#5:16 C#5:8.t B4:16 B4:4 r:4 | notes right; the trill over the dotted C#5 was missed
+fix 1 77 | B4:8. C#5:16 A#4:8.t B4:16 B4:4 r:8 G4:16 F#4:16 | notes right; the trill over the dotted A#4 was missed
+fix 2 77 | F#4:8 G4:8 F#4:8t F#4:8 F#4:4 r:4 | notes right; the trill over the third eighth was missed
+edition 0 77 | the trill is written as a sign; the MIDI realises it with extra notes
+edition 1 77 | the trill is written as a sign; the MIDI realises it with extra notes
+edition 2 77 | the trill is written as a sign; the MIDI realises it with extra notes
+edition 1 78 | beat 3 is G4 then D4 A3 sixteenths (A3 on the second ledger line, checked at 4x); the MIDI has B3 for the D4
+fix 3 80 | D4:4 r:4 r:2 | quarter rest and half rest printed after D4 (as Viola II/III); OMR dropped the quarter rest
+edition 0 83 | the sharp on the first C5 holds for the bar (C#5 throughout); the MIDI has C natural
+edition 5 84 | E3 F#3 sixteenths then G3 eighth on beat 3, eighth rest at the end; the MIDI has only E3 F#3 at the very end
+fix 3 85 | r:2 r:4 r:8 @f G4:16 F#4:16 | quarter rest after the half rest missed (Viola II identical)
+edition 5 85 | whole-bar rest; the MIDI has a G3 on beat 1
+edition 4 86 | G4 D4 C4 D4 G4 F#4 G4 B3 A3 B3 G4 F#4; the MIDI has B3 A3 B3 on beat 1 and G3 F#3 G3 on beat 3
+edition 5 86 | quarters G3 B3 D4, eighth rest, D4 on the last half-beat; the MIDI moves the last D4 to beat 4
+edition 0 89 | second half B4 D#5 B4 D#5 ... (B4 first); the MIDI has D#5 B4 D#5 B4
+edition 1 89 | second half F#4 B4 F#4 B4 ... (F#4 first); the MIDI has B4 first
+edition 5 89 | second half B3 D#4 B3 D#4 ... (B natural); the MIDI has A#3 D#4
+edition 0 91 | the flat on the first B4 holds for the bar (Bb4 throughout); the MIDI has B natural on the sixth and fourteenth sixteenths
+fix 1 91 | @p F4:16( E4:16 F4:8) r:4 F4:16( E4:16 F4:8) r:4 | natural printed on the first F4 (F natural for the bar); OMR read F#4 and missed the p
+fix 2 94 | A4:16( G#4:16 A4:8) r:4 A4:16( G#4:16 A4:8) r:4 | quarter rest after the first figure missed (Violin II has the same rhythm)
+fix 7 94 | E2:4 r:4 r:2 | quarter rest before the half rest missed (all four bass staves identical)
+fix 8 95 | E2:4 r:4 r:2 | quarter rest before the half rest missed (all four bass staves identical)
+edition 4 97 | E4, rests, A3 G#3 A3 eighth, rests, A4; the MIDI adds Viola III's F3 E3 F3 figure
+edition 5 97 | C4, rests, F3 E3 F3 (natural printed) and C4; the MIDI has only the C4s
+fix 8 97 | A2:8 r:8 r:4 r:4 r:8 A3:8 | rests are eighth, quarter, quarter, eighth as in Vc I/II; OMR dropped a quarter rest
+edition 4 98 | as in bar 97 (D4, G3 F#3 G3, G4); the MIDI adds Viola III's E3 D3 E3 figure
+edition 5 98 | G4, rests, E3 D3 E3 and B3; the MIDI has only G4 and B3
+fix 8 98 | G2:8 r:8 r:4 r:4 r:8 G3:8 | rests are eighth, quarter, quarter, eighth as in Vc I/II; OMR dropped a quarter rest
+fix 2 99 | C5:8 r:8 r:8 r:4 F4:16 E4:16 F4:8 A4:8 | rests printed as eighth, eighth, quarter (in that order); OMR dropped the quarter rest
+edition 3 99 | first eighth A4; the MIDI has G4
+edition 4 99 | as in bar 97 (C4, F3 E3 F3, F4); the MIDI adds Viola III's D3 C#3 D3 figure
+edition 5 99 | F4, rests, D3 C#3 D3 and A3; the MIDI has only F4 and A3
+fix 8 99 | F2:8 r:8 r:4 r:4 r:8 F3:8 | rests are eighth, quarter, quarter, eighth as in Vc I/II; OMR dropped a quarter rest
+edition 0 100 | beat 3 figure G#4 F#4 G#4; the MIDI has G#4 G4 G#4
+edition 2 100 | B4 G#4 F#4 G#4 D4 C4 D4 C4 B3 B3 G#4 (checked at 4x); the MIDI has B3 A3 B3 on beat 3 and G4 at the end
+edition 1 103 | second half B4 A4 B4 C5 B4 E5 D#5 F#5; the MIDI has Violin III's notes here
+edition 2 103 | E4 eighth, two E4 sixteenths, E4 eighth, eighth rest, then G4 F#4 G4 A4 G4 B4 A4 C5; the MIDI is shifted by a sixteenth
+edition 4 103 | fourth sixteenth G4 natural (no accidental printed); the MIDI has G#4
+edition 2 104 | B4 A4 B4 C5 B4 E5 B4 F#5 B4 E5 B4 D#5 B4 E5 B4 D#5; the MIDI is shifted by a sixteenth
+edition 2 105 | B4 C5 B4 A4 B4 F#4 F#4 D#4, eighth rest, G5 F#5; the MIDI is shifted
+edition 8 106 | last sixteenth C4 (ledger line, checked at 3x); the MIDI has C3
+edition 9 106 | last sixteenth C4 (ledger line); the MIDI has C3
+fix 5 107 | D4:16 E4:16 D4:16 C4:16 B3:16 G4:16 F#4:16 E4:16 D4:16 D5:16 C#5:16 B4:16 A4:16 B4:16 A4:16 G4:16 | sharp printed on the C5 (as Viola I/II); OMR missed it
+edition 8 107 | second sixteenth C4 (ledger line); the MIDI has C3
+edition 9 107 | second sixteenth C4 (ledger line); the MIDI has C3
+fix 2 108 | A4:16( G4:16 A4:8) r:4 A4:16( G4:16 A4:8) r:4 | closing quarter rest missed (Violin I has the same rhythm)
+fix 6 108 | D3:4 r:4 D3:4 r:4 | closing quarter rest missed (all four bass staves identical)
+fix 8 108 | D3:4 r:4 D3:4 r:4 | closing quarter rest missed
+fix 9 108 | D3:4 r:4 D3:4 r:4 | closing quarter rest missed
+fix 2 109 | D5:16( C5:16 D5:8) r:4 D5:16( C5:16 D5:8) r:4 | both quarter rests missed (Violin II has the same rhythm)
+fix 6 109 | G2:4 r:4 G2:4 r:4 | both quarter rests missed (all four bass staves identical)
+fix 7 109 | G2:4 r:4 G2:4 r:4 | quarter rest after the first G2 missed
+fix 8 109 | G2:4 r:4 G2:4 r:4 | both quarter rests missed
+fix 9 109 | G2:4 r:4 G2:4 r:4 | both quarter rests missed
+fix 5 110 | B3:8( G#3:8 G#3:8 G#3:8) G#3:8( G#3:8 G#3:8 G#3:8) | sharp printed on the second note and held for the bar (G#3); OMR read G natural and split off a second voice
+fix 6 110 | G#2:4 r:4 G#2:4 r:4 | closing quarter rest missed (all four bass staves identical)
+fix 9 110 | G#2:4 r:4 G#2:4 r:4 | closing quarter rest missed
+fix 5 111 | E4:16( D4:16 E4:8) r:4 E4:16( D4:16 E4:8) r:4 | quarter rest after the first figure missed (Viola II has the same rhythm)
+fix 9 111 | A2:4 r:4 A2:4 r:4 | quarter rest after the first A2 missed (all four bass staves identical)
+fix 5 112 | C5:16( B4:16 C5:8) r:4 C5:16( B4:16 C5:8) r:4 | quarter rest after the first figure missed (Viola I has the same rhythm)
+fix 9 112 | F#2:4 r:4 F#2:4 r:4 | quarter rest after the first F#2 missed (all four bass staves identical)
+edition 4 112 | the flat on the first E4 holds for the bar (Eb4 in both groups); the MIDI has F4 for the seventh sixteenth of each group
+edition 6 110 | G#2 (sharp printed), as all bass staves; the MIDI has F#2
+edition 7 110 | G#2 (sharp printed); the MIDI has F#2
+edition 8 110 | G#2 (sharp printed); the MIDI has F#2
+edition 9 110 | G#2 (sharp printed); the MIDI has F#2
+edition 4 113 | p, F4 (natural printed) G4 F4 figures with quarter rests; the MIDI gives Viola II Viola III's forte arpeggio
+edition 5 113 | forte arpeggio B3 C4 B3 Ab4 F4 D4 B3 F3 twice; the MIDI gives Viola III Viola II's F4 G4 F4 figures
+fix 0 114 | G5:16( F#5:16 G5:8) r:4 G5:16( F#5:16 G5:8) r:4 | quarter rest after the first figure missed (Violin II has the same rhythm)
+fix 2 114 | Bb4:16( A4:16 Bb4:8) r:4 Bb4:16( A4:16 Bb4:8) r:4 | quarter rest after the first figure missed
+fix 4 114 | r:4 G4:16( A4:16 G4:8) r:4 G4:16( A4:16 G4:8) | the bar starts with a quarter rest (as Viola I); OMR dropped it
+fix 4 115 | r:4 G4:16( A4:16 G4:8) r:4 G4:16( A4:16 G4:8) | both quarter rests missed (Viola I/III have the same rhythm)
+fix 3 116 | r:4 Bb4:16( C5:16 Bb4:8) r:4 Bb4:16( C5:16 Bb4:8) | quarter rest before the second figure missed (Viola II/III have the same rhythm)
+fix 3 117 | r:4 Bb4:16( C5:16 Bb4:8) r:4 Bb4:16( C5:16 Bb4:8) | quarter rest before the second figure missed
+edition 8 117 | fourth sixteenth D4 (above the ledger line, checked at 3x); the MIDI has D3
+fix 3 118 | r:4 A4:16( Bb4:16 A4:8) r:4 A4:16( Bb4:16 A4:8) | quarter rest before the second figure missed
+edition 4 118 | last eighth F#4, as in the first figure; the MIDI has D4
+edition 4 119 | D4, rests, G3 F#3 G3, rests, G4; the MIDI adds Viola III's Eb3 D3 Eb3 figure
+fix 5 119 | D4:8 r:8 r:4 r:8 Eb3:16 D3:16 Eb3:8 Bb3:8 | rests are eighth then quarter (as Violin III); OMR read two eighth rests and lost a beat
+edition 5 119 | the Eb3 D3 Eb3 Bb3 figure is printed; the MIDI has only the final Bb3
+fix 6 119 | G2:8 r:8 r:4 r:4 r:8 G3:8 | rests are eighth, quarter, quarter, eighth (as Vc II/III); OMR dropped a quarter rest
+fix 2 120 | C5:8 r:8 r:4 r:8 F4:16 E4:16 F4:8 A4:8 | the quarter rest after the eighth rest was missed (same rhythm as bar 119)
+edition 4 120 | C4, rests, F3 E3 F3, rests, F4; the MIDI adds Viola III's D3 C3 D3 figure
+fix 5 120 | F4:8 r:8 r:4 r:8 D3:16 C3:16 D3:8 A3:8 | rests are eighth then quarter; OMR lost the quarter rest (F4 natural printed, checked at 3x)
+edition 5 120 | the D3 C3 D3 A3 figure is printed; the MIDI has only the final A3
+fix 6 120 | F2:8 r:8 r:4 r:4 r:8 F3:8 | rests are eighth, quarter, quarter, eighth; OMR dropped both quarter rests
+fix 2 121 | Bb4:8 r:8 r:4 r:8 Eb4:16 D4:16 Eb4:8 G4:8 | the quarter rest after the eighth rest was missed
+edition 4 121 | Bb3, rests, Eb3 D3 Eb3, rests, Eb4; the MIDI adds Viola III's C3 D3 C3 figure
+edition 5 121 | the C3 D3 C3 G3 figure is printed (checked at 3x); the MIDI has only the final G3
+fix 6 121 | Eb2:8 r:8 r:4 r:4 r:8 Eb3:8 | rests are eighth, quarter, quarter, eighth; OMR dropped both quarter rests
+edition 9 122 | single D2 on beat 1 (the MIDI doubles it)
+edition 6 125 | second-half eighths F#3 G3 D4 D3 (G3 in the space below the top line, checked at 4x); the MIDI has A3 for G3
+edition 7 125 | as Violoncello I (G3); the MIDI has A3
+edition 8 125 | as Violoncello I (G3); the MIDI has A3
+edition 9 125 | F#3 G3 D3 D2 at the end (G3, and the last two an octave below the cellos); the MIDI has A3 D4 D3
+edition 3 128 | fourth eighth G4 (top line, checked at 4x); the MIDI has A4
+edition 4 128 | fourth eighth G4, as Viola I; the MIDI has A4
+edition 5 128 | fourth eighth G4, as Viola I; the MIDI has A4
+edition 7 132 | beat 3 eighth G2 (bottom line), then D3 C3 D3 G3 F#3; the MIDI has G3
+edition 8 132 | C4 D4 on beats 1.5 and 2 (as the other bass staves); the MIDI has C3 D3
+edition 9 132 | G3 C4 D4 D3 then four slurred G2 eighths; the MIDI has C3 D3 and a B2 inside the slurred group
+edition 7 133 | G3 eighth alone; the MIDI adds a B3
+edition 8 133 | D3 eighth alone; the MIDI adds a B3
+edition 4 135 | G3 eighth, A3 B3 sixteenths, then C4 D4 E4 F#4 and G4 (checked at 3x); the MIDI starts the run a third higher (C4 D4 E4 F#4 G4 A4 B4)
+fix 7 135 | r:4 r:8 D3:8 G3:8 F#3:16 E3:16 D3:16 C3:16 B2:16 A2:16 | the bar starts with a quarter rest (as Vc I/III); OMR dropped it
+fix 1 136 | B3:8 A3:16 G3:16 D4:8 D4:8 G3:4.^ | the mark over the final dotted quarter is a fermata, as in every other part; OMR read it as a staccato dot
+fix 5 136 | B3:8 A3:16 G3:16 D4:8 D3:8 G3:4.^ | the mark over the final dotted quarter is a fermata, as in every other part; OMR read it as a staccato dot
+fix 6 136 | B2:8 A2:16 G2:16 D3:8 D2:8 G2:4.^ | the mark over the final dotted quarter is a fermata, as in every other part; OMR read it as a staccato dot
+fix 9 136 | B2:8 A2:16 G2:16 D3:8 D2:8 G2:4.^ | the mark over the final dotted quarter is a fermata, as in every other part; OMR read it as a staccato dot
+edition 4 71 | first eighth F#4 (Viola I has B4, Viola III D4; checked at 3x); the MIDI has B4
+edition 5 71 | first eighth D4; the MIDI has B4
+edition 2 108 | G4 natural in the A4 G4 A4 figures (no accidental printed, checked at 4x); the MIDI has G#4
+edition 5 111 | E4 natural in the E4 D4 E4 figures (no accidental printed, checked at 4x); the MIDI has Eb4
+# Dynamics pass: every page was scanned for dynamics and compared with the OMR's; two were missing.
+fix 4 27 | @f G3:16( F#3:16 G3:16) A3:16 G3:16 B3:16 G3:16 C4:16 G3:16( F#3:16 G3:16) A3:16 G3:16 D4:16 G3:16 E4:16 | notes right; the f under the first note was missed
+fix 2 91 | @p D4:16( C4:16 D4:8) r:4 D4:16( C4:16 D4:8) r:4 | notes right; the p under the first note was missed (Violin II has it too)

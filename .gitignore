@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.idea/
+.claude-profile
+.envrc
+.DS_Store
+
+# Files that stay on this machine: MIDI files we may not redistribute, the
+# record of what was sent to the FM-1's song bank (fm1-bank.json), etc.
+/local/
+
+# Per song: downloaded sources (scores, PDFs) and build output (recordings,
+# stems, slide images). Regenerable or downloadable; see each CREDITS.md.
+/songs/*/sources/
+/songs/*/build/
