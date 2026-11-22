@@ -12,11 +12,14 @@ the bottom of each slide), SLIDES being a list of dicts:
     {"kind": "title",   "title": ..., "lines": [...], "weight": 1}
     {"kind": "bullets", "heading": ..., "bullets": [...], "weight": 1}
     {"kind": "table",   "heading": ..., "columns": [...], "rows": [[...]], "notes": [...]}
+    {"kind": "qr",      "heading": ..., "bullets": [...], "url": ..., "caption": ...}
+(a "qr" slide shows the bullets beside a scannable QR code for `url`).
 The last slide holds until the music ends. Each slide's screen time is shared
 out by `weight` (default 1), crossfading between slides. Needs ffmpeg.
 """
 
 import argparse
+import io
 import importlib.util
 import re
 import shutil
@@ -147,11 +150,41 @@ def render(slide: dict, base: Image.Image, page: int, total: int) -> Image.Image
             for line in wrap(d, note, BODY(28), span):
                 d.text((MARGIN, y), line, font=BODY(28), fill=SOFT)
                 y += 42
+    elif kind == "qr":
+        y = heading(d, slide["heading"])
+        size = 520
+        code = qr_image(slide["url"], size)
+        qx, qy = W - MARGIN - size, y + 10
+        pad = 24
+        d.rounded_rectangle([qx - pad, qy - pad, qx + size + pad, qy + size + pad],
+                            radius=18, fill=(255, 255, 255))
+        img.paste(code, (qx, qy))
+        caption = slide.get("caption", slide["url"])
+        cw = d.textlength(caption, font=BODY_M(34))
+        d.text((qx + (size - cw) / 2, qy + size + pad + 22), caption, font=BODY_M(34), fill=ACCENT)
+        f = BODY(38)
+        width = qx - pad - MARGIN - 110
+        for b in slide.get("bullets", []):
+            d.ellipse([MARGIN + 4, y + 20, MARGIN + 16, y + 32], fill=ACCENT)
+            for line in wrap(d, b, f, width):
+                d.text((MARGIN + 50, y), line, font=f, fill=INK)
+                y += 54
+            y += 22
     else:
         raise ValueError(f"unknown slide kind {kind!r}")
     if kind != "title":
         footer(d, page, total)
     return img
+
+
+def qr_image(url: str, size: int) -> Image.Image:
+    """A black-on-white QR code for `url`, `size` pixels square (no quiet zone;
+    the slide draws a white card around it)."""
+    import segno
+    buf = io.BytesIO()
+    segno.make(url, error="m").save(buf, kind="png", scale=10, border=0)
+    buf.seek(0)
+    return Image.open(buf).convert("RGB").resize((size, size), Image.NEAREST)
 
 
 def audio_seconds(path: Path) -> float:

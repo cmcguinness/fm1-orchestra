@@ -44,15 +44,17 @@ def input_device(name: str) -> int:
     raise RecordError(f"no audio input named {name!r}; is the FM-1 connected?")
 
 
-def check_ready(output: Path, device: str = DEFAULT_DEVICE) -> None:
-    """Fail before any MIDI is sent if recording can't work."""
+def check_ready(output: Path, device: str | None = DEFAULT_DEVICE) -> None:
+    """Fail before any MIDI is sent if recording can't work. device=None skips
+    the audio-input check (re-mixing saved stems needs no FM-1)."""
     if shutil.which("ffmpeg") is None:
         raise RecordError("--record needs ffmpeg (brew install ffmpeg)")
     if not output.parent.is_dir():
         raise RecordError(f"no such folder: {output.parent}")
     if output.suffix.lower() not in (".wav", ".flac", ".mp3", ".m4a", ".aiff"):
         raise RecordError("--record file must end in .wav, .flac, .mp3, .m4a or .aiff")
-    input_device(device)
+    if device is not None:
+        input_device(device)
 
 
 class Recorder:

@@ -13,6 +13,26 @@ Run from the root: `.venv/bin/python fm1-orchestra/fm1ctl.py ...`; `pytest`
 uses pytest.ini. Videos: `fm1ctl.py video NAME`. Entries below predate the
 move and use the old paths (songs/X.py, scores/, videos/, sheet-music/).
 
+## In progress (2026-11-21): Carol of the Bells
+- `songs/carol-of-the-bells/`: our own arrangement of Leontovych's Shchedryk
+  (1916, PD). build_carol.py holds the four voices in a LilyPond-relative
+  subset (checked against Wikipedia's "Shchedryk (song)") and arranges them
+  for 8 parts at 168 bpm (144 was "too slow"). Sounds picked by ear: CELESTE
+  ostinato, BELL 1 descant, VIBE 1, MARIMBA (x1.5), WARM PAD 1 (+12),
+  STR.PIZZ.1 bass, VIOLA SECN pedal (+12), TUB BELLS tolling.
+- Rejected: F. CHOIR, ORCH-CHIME (half-pitch carriers: sounded an octave low),
+  STRINGS 2, a bass doubling an octave down.
+- Pans set for `--stems`; slides drafted, including the user's requested
+  "Support Ukraine" slide with a QR code for https://u24.gov.ua (new "qr"
+  slide kind in fm1/video.py, segno added to requirements). Didot lacks
+  Cyrillic. Stems recorded and mixed; video built (5 slides, QR last so it
+  holds to the end). YouTube title/description drafted.
+- `song NAME --record FILE --remix` re-mixes saved stems with the song's
+  current pans (no FM-1 needed; same pans reproduce the mix byte for byte).
+  stems.json now records each take's channel (older files: from the name).
+- README: "Making a rendition your own" (sounds, edits, balance, tempo, key,
+  phrasing, reverb, panning/remix, arrangement, video). Nothing committed yet.
+
 ## Done (2026-11-19)
 - USB MIDI both ways works (`fm1ctl.py identity` gets a 41-byte reply).
 - DX7 single-voice (VCED) encoder, `fm1/dx7.py`; hand-built organ voices, `fm1/voices.py`.

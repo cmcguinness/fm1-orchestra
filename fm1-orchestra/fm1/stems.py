@@ -29,17 +29,35 @@ class Stem:
     path: Path          # raw capture (WAV, 44.1 kHz stereo)
     start: int          # capture frame at which playback began
     pan: float          # -1 left .. 1 right
+    channel: int = 0    # the part's MIDI channel (0: unknown)
 
 
 def save(stems: list[Stem], folder: Path) -> None:
     """stems.json beside the takes: start frames and pans, for re-mixing later."""
-    data = [{"file": s.path.name, "start": s.start, "pan": s.pan} for s in stems]
+    data = [{"file": s.path.name, "start": s.start, "pan": s.pan, "channel": s.channel}
+            for s in stems]
     (folder / "stems.json").write_text(json.dumps(data, indent=2) + "\n")
 
 
 def load(folder: Path) -> list[Stem]:
-    data = json.loads((folder / "stems.json").read_text())
-    return [Stem(folder / d["file"], d["start"], d["pan"]) for d in data]
+    """The takes saved by save(). Older stems.json files have no channel; the
+    take's file name starts with it ("05-Violino_I.wav")."""
+    path = folder / "stems.json"
+    if not path.is_file():
+        raise RecordError(f"no stems in {folder} (record them first with --stems)")
+    data = json.loads(path.read_text())
+    return [Stem(folder / d["file"], d["start"], d["pan"],
+                 d.get("channel") or int(d["file"].split("-", 1)[0]))
+            for d in data]
+
+
+def repan(stems: list[Stem], pans: dict[int, float]) -> list[Stem]:
+    """The same takes with each part's pan taken from `pans` (channel -> pan)."""
+    missing = [s.path.name for s in stems if s.channel not in pans]
+    if missing:
+        raise RecordError(f"no part in the song for {', '.join(missing)}; "
+                          "the song's channels changed since the stems were recorded")
+    return [Stem(s.path, s.start, pans[s.channel], s.channel) for s in stems]
 
 
 def gains(pan: float) -> tuple[float, float]:

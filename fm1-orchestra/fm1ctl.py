@@ -174,6 +174,9 @@ def build_parser() -> argparse.ArgumentParser:
                     help="with --record: record each part alone, then mix them with each "
                          "part's pan (the FM-1 ignores MIDI pan); stems kept in "
                          "FILE's folder under <name>-stems/")
+    sg.add_argument("--remix", action="store_true",
+                    help="with --record FILE: re-mix the stems already recorded for FILE "
+                         "with the song's current pans; plays nothing")
 
     sub.add_parser("songs", help="list the song modules")
 
@@ -388,7 +391,8 @@ def _check_record(args) -> None:
         sys.exit("--no-normalize only works with --record")
     if args.record:
         try:
-            check_ready(args.record.expanduser(), args.record_device)
+            device = None if getattr(args, "remix", False) else args.record_device
+            check_ready(args.record.expanduser(), device)
         except RecordError as exc:
             sys.exit(str(exc))
 
@@ -460,7 +464,7 @@ def _run_stems(args, session: song_mod.Session, source: str) -> None:
                     time.sleep(STEM_SETTLE)    # let program and effect changes land first
                     rec.mark()
                     session.play(ev)
-                takes.append(stems_mod.Stem(path, rec.mark_frame, part.pan))
+                takes.append(stems_mod.Stem(path, rec.mark_frame, part.pan, part.channel))
         except KeyboardInterrupt:
             sys.exit("\nStopped; no mix written.")
         except RuntimeError as exc:
@@ -473,10 +477,27 @@ def _run_stems(args, session: song_mod.Session, source: str) -> None:
     print(f"  Stems in {folder}")
 
 
+def _remix(args, song: song_mod.Song) -> None:
+    """Mix the saved stems again with the song's current pans (no playing)."""
+    output = args.record.expanduser()
+    folder = output.parent / f"{output.stem}-stems"
+    try:
+        takes = stems_mod.repan(stems_mod.load(folder),
+                                {p.channel: p.pan for p in song.parts})
+        for t in takes:
+            print(f"  {t.path.name:34} pan {t.pan:+g}")
+        stems_mod.mix(takes, output, normalize=not args.no_normalize)
+        stems_mod.save(takes, folder)
+    except (RecordError, OSError, ValueError) as exc:
+        sys.exit(str(exc))
+
+
 def cmd_song(args) -> None:
     _check_record(args)
     if args.stems and not args.record:
         sys.exit("--stems needs --record FILE (the mix)")
+    if args.remix and (not args.record or args.stems):
+        sys.exit("--remix needs --record FILE (the mix to rewrite) and no --stems")
     path = song_mod.song_path(args.songs, args.name)
     if not path.is_file():
         names = ", ".join(p.stem for p in song_mod.song_files(args.songs)) or "none"
@@ -488,6 +509,9 @@ def cmd_song(args) -> None:
     except Exception as exc:                    # a song file is user code
         sys.exit(f"{path.name}: {exc}")
     _apply_overrides(args, song)
+    if args.remix:
+        _remix(args, song)
+        return
     runner = _run_stems if args.stems else _run
     runner(args, _session(args, song, module), path.name)
 
