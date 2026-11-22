@@ -6,6 +6,8 @@ the result from the FM-1's USB audio, and make a slide-show video of it.
 
 ## Layout
 - `fm1-orchestra/`: the software (fm1ctl.py, fm1/, sysex/, tools/, tests/).
+- `docs/`: setup, the Aquarium walkthrough, commands, song modules,
+  customizing a rendition, how it works. README.md is the short front page.
 - `songs/NAME/`: everything for one song: NAME.py (the song module),
   NAME.mid, NAME-slides.py, CREDITS.md, scores and build scripts.
   Gitignored per song: `sources/` (downloads), `build/` (recordings, stems,
