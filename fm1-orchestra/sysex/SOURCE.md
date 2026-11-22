@@ -8,3 +8,7 @@ https://homepages.abdn.ac.uk/d.j.benson/pages/html/dx7.html
 
 It includes the original Yamaha factory banks as rom1a.syx to rom4b.syx.
 Browse it with `fm1ctl.py patches [search]`.
+
+The page calls these patches public domain but gives no basis for that, and
+the collection holds patches by many people as well as Yamaha's own. If you
+made one of these banks and want it removed, open an issue and it will be.

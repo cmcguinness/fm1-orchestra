@@ -15,5 +15,9 @@ __pycache__/
 /songs/*/sources/
 /songs/*/build/
 
+# Videos: built locally from a recording (`fm1ctl.py video NAME`), not kept
+# in git, which would carry every version forever.
+/songs/*/*.mp4
+
 # Songs being worked on: not yet ready for the repository.
 /songs-wip/

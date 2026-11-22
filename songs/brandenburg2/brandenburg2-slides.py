@@ -25,9 +25,9 @@ SLIDES = [
         "strings in the Switched-On Bach manner of our Brandenburg No. 3.",
     ]},
     {"kind": "bullets", "heading": "The score", "weight": 1.0, "bullets": [
-        "Edition: Andy Vaught, Mutopia Project (2009), from the "
+        "Edition: Mutopia Project (2009), typeset by Andy Vaught from the "
         "Bach-Gesellschaft edition: public domain.",
-        "Its MIDI has no dynamics, so fm1control adds the phrasing: strong beats "
+        "Its MIDI has no dynamics, so fm1-orchestra adds the phrasing: strong beats "
         "lean in, faster notes are lighter, and notes are slightly detached, "
         "the bass most of all.",
         "Played at 100 quarter notes a minute.",
@@ -58,7 +58,7 @@ SLIDES = [
     ]},
     {"kind": "title", "title": "Brandenburg No. 2", "lines": [
         "Johann Sebastian Bach",
-        "Score edited by Andy Vaught, Mutopia Project",
+        "Score typeset by Andy Vaught, Mutopia Project",
         "Performed by Charles McGuinness and Claude, on an M-VAVE FM-1",
         "For Firing Line, 1966–1999 · Recorded 21 November 2026",
     ]},

@@ -32,7 +32,7 @@ SLIDES = [
         "Its 45 pages were read by optical music recognition (Audiveris), then "
         "proofread bar by bar against the printed score: 94 corrections, "
         "mostly dropped rests and missed accidentals.",
-        "Converted to MIDI by fm1control, keeping the score's dynamics. The "
+        "Converted to MIDI by fm1-orchestra, keeping the score's dynamics. The "
         "score says only Allegro; we play it at 100 quarter notes a minute.",
     ]},
     {"kind": "table", "heading": "The voices", "weight": 1.3,
@@ -58,7 +58,7 @@ SLIDES = [
     ]},
     {"kind": "title", "title": "Brandenburg No. 3", "lines": [
         "Johann Sebastian Bach",
-        "Score edited by Chris Sawer, Mutopia Project",
+        "Score typeset by Chris Sawer, Mutopia Project",
         "Performed by Charles McGuinness and Claude, on an M-VAVE FM-1",
         "An homage to Wendy Carlos's Switched-On Bach · Recorded 20 November 2026",
     ]},

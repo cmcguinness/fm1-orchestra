@@ -10,7 +10,7 @@ Pieces are described by small Python *song modules*. A score in MusicXML can be
 converted into a playable MIDI file, dynamics included.
 
 **Example:** [Saint-Saëns' "Aquarium" played by a $100 FM synth](https://youtu.be/cEGUEfn2RJw)
-on YouTube (also in [`songs/aquarium/aquarium.mp4`](songs/aquarium/aquarium.mp4)): *Aquarium*
+on YouTube: *Aquarium*
 from *The Carnival of the Animals*, played by the FM-1 from a
 public-domain transcription of the score. The [walkthrough below](#reproducing-aquarium-from-scratch)
 rebuilds it from nothing.
@@ -344,7 +344,8 @@ fm1-orchestra/            the software
   tools/               score tools: OMR comparison, score tokens
   tests/               pytest suite (no hardware needed)
 songs/                 one folder per song, with everything specific to it
-  aquarium/            aquarium.py, .mid, -slides.py, .mp4, CREDITS.md
+  aquarium/            aquarium.py, .mid, -slides.py, CREDITS.md (and, built
+                       locally and gitignored, build/ and aquarium.mp4)
   brandenburg2/, brandenburg3/ (with its corrected score), clair-de-lune/,
   toccata-and-fugue/
 songs-wip/             gitignored: songs in progress, laid out like songs/;

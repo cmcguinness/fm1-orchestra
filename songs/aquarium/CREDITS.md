@@ -12,4 +12,4 @@ https://imslp.org/wiki/Le_carnaval_des_animaux_(Saint-Saëns,_Camille)
 `aquarium.py`.
 
 Patches: Dave Benson's public-domain DX7 library (`fm1-orchestra/sysex/SOURCE.md`).
-Video: `aquarium.mp4`, https://youtu.be/cEGUEfn2RJw
+Video: https://youtu.be/cEGUEfn2RJw (build it locally with `fm1ctl.py video aquarium`).

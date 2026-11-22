@@ -23,7 +23,7 @@ SLIDES = [
         "Score: Nevin Williams' MuseScore transcription of the Durand edition, "
         "for flute, glass harmonica, two pianos and strings (IMSLP #904564/904565), "
         "dedicated to the public domain.",
-        "Converted from MusicXML to MIDI by fm1control (with music21), keeping the "
+        "Converted from MusicXML to MIDI by fm1-orchestra (with music21), keeping the "
         "score's dynamics, hairpins, sf accents, pizzicati and pedal.",
         "Tempo: the score says only Andantino; we play it at 66 quarter notes a minute.",
     ]},
@@ -41,7 +41,7 @@ SLIDES = [
      "notes": ["Patches from Dave Benson's public-domain DX7 library, chosen by ear "
                "in side-by-side auditions."]},
     {"kind": "bullets", "heading": "How it's played", "weight": 1.2, "bullets": [
-        "fm1control (Python) sends each part's notes live over USB MIDI, one MIDI "
+        "fm1-orchestra (Python) sends each part's notes live over USB MIDI, one MIDI "
         "channel per FM-1 part.",
         "All the sounds sit in one FM-1 preset bank; each part picks its patch by "
         "Program Change, and its level by Expression (strings at 100 of 127).",

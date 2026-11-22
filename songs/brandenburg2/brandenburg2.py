@@ -1,7 +1,7 @@
 """Bach, Brandenburg Concerto No. 2 in F, BWV 1047, III. Allegro assai,
 in the manner of the theme of William F. Buckley's "Firing Line".
 
-brandenburg2.mid is Mutopia's public-domain edition (Andy Vaught, from the
+brandenburg2.mid is Mutopia's public-domain edition (typeset by Andy Vaught, from the
 Bach-Gesellschaft, Mutopia-2009/06/13-1680): its LilyPond MIDI for movement
 III, with tracks named and the tempo set to 100 quarters a minute (the MIDI
 had a placeholder 60 and no dynamics; every note is velocity 127).
