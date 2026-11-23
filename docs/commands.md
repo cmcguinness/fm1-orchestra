@@ -24,7 +24,7 @@ FM-1 connected by USB.
 | Command | What it does |
 |---|---|
 | `ports`, `identity` | List MIDI ports; ask the FM-1 for its firmware version |
-| `voices` | List the built-in voices, designed in code: celesta, epiano, flute, piano, plenum (organ) |
+| `voices` | List the built-in voices, designed in code (celesta, epiano, flute, piano, plenum), and the named library sounds (berlin-bass) |
 | `song NAME`, `songs` | Play a song module (`songs/NAME/NAME.py`); list them |
 | `video NAME` | Build `songs/NAME/NAME.mp4`: its slides over `build/NAME.wav` |
 | `play FILE.mid` | Play any MIDI file. `--part CH SOUND TRACK...` sends tracks to parts; `--voice`/`--patch` pick one sound. It uses a song module that names the file, unless `--no-song` |
@@ -45,8 +45,17 @@ their start points are kept beside `FILE`, in `<FILE name>-stems/`, for re-mixin
 `--remix` re-mixes them with the song's current pans, without playing anything.
 
 A **sound** is a library patch `BANK:N` (see `patches`), optionally with field
-edits, e.g. `dxoc12:21,op1.r1=80,op3.out=0`. A built-in voice name
-(`fm1ctl.py voices`) also works.
+edits, e.g. `dxoc12:21,op1.r1=80,op3.out=0`. A built-in voice name or a
+named library sound (`fm1ctl.py voices`) also works. A named sound is a short
+name for a library patch plus edits, kept in `fm1-orchestra/fm1/sounds.py`:
+`berlin-bass` is the DX7's factory BASS 2 with a delayed vibrato, the fretless
+line of Berlin's "Take My Breath Away". More edits can follow a name, e.g.
+`berlin-bass,lfo.pmd=20`.
+
+Edit fields: `opN.` plus `r1`-`r4`, `l1`-`l4` (envelope), `out`, `coarse`,
+`fine`, `detune`, `kvs`, `rs`, `ams`, `mode`, `bp ld rd lc rc` (keyboard
+scaling); globals `alg`, `fb`, `sync`, `lfo.speed`, `lfo.delay`, `lfo.pmd`,
+`lfo.amd`, `lfo.sync`, `lfo.wave`, `pms`, and `transpose` (0-48, 24 = none).
 
 ## Playing from a keyboard
 

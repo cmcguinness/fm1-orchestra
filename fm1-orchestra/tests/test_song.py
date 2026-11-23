@@ -222,3 +222,15 @@ def test_pan_is_validated_and_described(tmp_path):
     song.parts[0].pan = -0.5
     session = song_mod.Session(song, library=lambda: [], module=module, bank=BANK)
     assert "pan -0.5" in session.describe()[0]
+
+
+def test_named_sound_expands_to_its_patch_and_edits():
+    from fm1 import syx
+    from pathlib import Path
+    lib = syx.load_library(Path(__file__).resolve().parents[1] / "sysex")[0]
+    label, vced = song_mod._resolve("berlin-bass", [], lambda: lib)
+    assert label.startswith("berlin-bass: rom1a:16")
+    assert vced[139] == 14 and vced[144] == 24          # vibrato depth, no transpose
+    _, more = song_mod._resolve("berlin-bass", ["lfo.pmd=20"], lambda: lib)
+    assert more[139] == 20                               # extra edits apply last
+    assert song_mod.sound_key("berlin-bass") == "berlin-bass"

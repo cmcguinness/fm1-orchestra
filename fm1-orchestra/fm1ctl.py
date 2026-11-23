@@ -21,6 +21,7 @@ from fm1.effects import (IDENTITY_REQUEST, REVERB_SPACES, effect_messages,
 from fm1.player import play, release_all, schedule, select_tracks, track_summary
 from fm1.record import DEFAULT_DEVICE as RECORD_DEVICE, Recorder, RecordError, check_ready
 from fm1.port import DEFAULT_PORT_HINT, PortNotFound, open_input, open_output
+from fm1.sounds import NAMED, expand
 from fm1.voices import VOICES
 
 CODE = Path(__file__).resolve().parent          # fm1-orchestra/
@@ -102,7 +103,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     sub.add_parser("ports", help="list MIDI ports")
     sub.add_parser("identity", help="ask the FM-1 to identify itself")
-    sub.add_parser("voices", help="list the built-in voices")
+    sub.add_parser("voices", help="list the built-in voices and named library sounds")
 
     sv = sub.add_parser("send-voice",
                         help="send a built-in voice to the edit buffer of the part selected on the FM-1")
@@ -124,8 +125,8 @@ def build_parser() -> argparse.ArgumentParser:
 
     sp = sub.add_parser("send-patch",
                         help="send a library patch to the edit buffer of the part selected on the FM-1")
-    sp.add_argument("patch", help="BANK:N, e.g. rom1a:11 (see `patches`); add edits as "
-                                  "BANK:N,op1.r1=80,fb=3")
+    sp.add_argument("patch", help="BANK:N, e.g. rom1a:11 (see `patches`), or a named sound "
+                                  "(see `voices`); add edits as BANK:N,op1.r1=80,fb=3")
     sp.add_argument("--channel", type=_channel, default=1)
 
     sub.add_parser("panic", help="release every note on every channel (stuck notes)")
@@ -254,6 +255,9 @@ def cmd_identity(args) -> None:
 def cmd_voices(_args) -> None:
     for key, make in sorted(VOICES.items()):
         print(f"{key:10} {make().name!r:14} {(make.__doc__ or '').strip()}")
+    print("\nNamed library sounds (fm1-orchestra/fm1/sounds.py):")
+    for key, (ref, edits, about) in sorted(NAMED.items()):
+        print(f"{key:12} {ref:10} {about}")
 
 
 def send_voice(out, key: str, channel: int) -> dx7.Voice:
@@ -306,8 +310,9 @@ def _library(folder: Path) -> list[syx.Patch]:
 
 
 def _find_patch(library: list[syx.Patch], spec: str) -> syx.Patch:
-    """'BANK:N' or 'BANK:N,op1.r1=80,...' -> the (edited) patch."""
+    """'BANK:N' or 'BANK:N,op1.r1=80,...' (or a named sound) -> the (edited) patch."""
     ref, *edits = [s.strip() for s in spec.split(",")]
+    ref, edits = expand(ref, edits)
     return syx.edit(syx.find(library, ref), edits)
 
 

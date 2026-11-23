@@ -18,7 +18,7 @@ the result from the FM-1's USB audio, and make a slide-show video of it.
   may not redistribute and `fm1-bank.json`, the record of the song bank.
 
 Run from the root: `.venv/bin/python fm1-orchestra/fm1ctl.py ...`;
-`pytest` (48 tests, no hardware needed).
+`pytest` (49 tests, no hardware needed).
 
 ## Songs
 | Song | Source | Video |
@@ -33,7 +33,8 @@ modules yet.
 
 ## What works
 - USB MIDI both ways; DX7 single-voice and 32-voice bank SysEx; patch
-  library browsing and field edits (`BANK:N,op1.r1=80,fb=3`, LFO/globals).
+  library browsing and field edits (`BANK:N,op1.r1=80,fb=3`, LFO/globals,
+  transpose); named library sounds in `fm1/sounds.py` (berlin-bass).
 - Song bank: `load-bank` packs every song's sounds into bank D (presets
   097-128); songs select them by Program Change.
 - Song modules: per-part sound, tracks, velocity, expression (CC 11),

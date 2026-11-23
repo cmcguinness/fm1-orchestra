@@ -153,6 +153,7 @@ GLOBAL_FIELDS = {
     "lfo.pmd": 139, "lfo.amd": 140,                 # pitch (vibrato) and amplitude depth
     "lfo.sync": 141, "lfo.wave": 142,               # wave: 0 tri 1 saw- 2 saw+ 3 sqr 4 sine 5 S/H
     "pms": 143,                                     # pitch-mod sensitivity, 0-7
+    "transpose": 144,                               # 0-48 semitones, 24 = none
 }
 
 
@@ -162,7 +163,8 @@ def edit(patch: Patch, edits: list[str]) -> Patch:
     Operator fields: r1-r4 / l1-l4 (envelope rates/levels), bp ld rd lc rc
     (keyboard scaling), rs (rate scaling), ams, kvs (velocity sensitivity),
     out (output level), mode, coarse, fine, detune. Globals: alg (1-32), fb,
-    sync, lfo.speed, lfo.delay, lfo.pmd, lfo.amd, lfo.sync, lfo.wave, pms.
+    sync, lfo.speed, lfo.delay, lfo.pmd, lfo.amd, lfo.sync, lfo.wave, pms,
+    transpose (0-48, 24 = none).
     """
     vced = list(patch.vced)
     limits = _OP_MAX * 6 + _GLOBAL_MAX

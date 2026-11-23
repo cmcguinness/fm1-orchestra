@@ -36,6 +36,7 @@ from . import humanize as humanize_mod
 from . import articulate as articulate_mod
 from .effects import REVERB_SPACES, effect_messages, firmware_version
 from .player import play, schedule, select_tracks
+from .sounds import NAMED, expand
 from .voices import VOICES
 
 EXPRESSION = 11         # CC: per-channel part volume on V16
@@ -111,9 +112,14 @@ def _resolve(spec: str, edits: dict[str, int] | list[str],
             raise ValueError(f"edits apply to library patches, not built-in voice {spec!r}")
         voice = VOICES[spec]()
         return voice.name.strip(), voice.to_vced()
+    if spec.lower() in NAMED:
+        ref, all_edits = expand(spec, edit_list)
+        patch = syx.edit(syx.find(library(), ref), all_edits)
+        extra = " (edited)" if edit_list else ""
+        return f"{spec.lower()}: {patch.ref} {patch.name.strip()}{extra}", patch.vced
     if ":" not in spec:
-        raise ValueError(f"unknown sound {spec!r}: use a built-in voice "
-                         f"({', '.join(sorted(VOICES))}) or BANK:N")
+        raise ValueError(f"unknown sound {spec!r}: use a built-in voice or named sound "
+                         f"({', '.join(sorted([*VOICES, *NAMED]))}) or BANK:N")
     patch = syx.edit(syx.find(library(), spec), edit_list)
     return f"{patch.ref} {patch.name}" + (" (edited)" if edit_list else ""), patch.vced
 
