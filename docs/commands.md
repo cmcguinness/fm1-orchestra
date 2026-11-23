@@ -57,6 +57,11 @@ Edit fields: `opN.` plus `r1`-`r4`, `l1`-`l4` (envelope), `out`, `coarse`,
 scaling); globals `alg`, `fb`, `sync`, `lfo.speed`, `lfo.delay`, `lfo.pmd`,
 `lfo.amd`, `lfo.sync`, `lfo.wave`, `pms`, and `transpose` (0-48, 24 = none).
 
+Many library patches carry a transpose byte that shifts them an octave or two
+down (or up). The FM-1 honours it, so such a patch sounds in the wrong octave
+next to the others. `patches` marks these as `[transpose -12: ...]`; add
+`,transpose=24` to the sound to play it at pitch.
+
 ## Playing from a keyboard
 
 The FM-1 can't host a USB keyboard, so `play-keys` passes the keyboard's notes

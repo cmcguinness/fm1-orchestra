@@ -35,6 +35,8 @@ modules yet.
 - USB MIDI both ways; DX7 single-voice and 32-voice bank SysEx; patch
   library browsing and field edits (`BANK:N,op1.r1=80,fb=3`, LFO/globals,
   transpose); named library sounds in `fm1/sounds.py` (berlin-bass).
+  `patches` flags patches whose transpose byte shifts their octave, and ones
+  rejected by ear (`REJECTED` in `fm1/sounds.py`; `--hide-rejected`).
 - Song bank: `load-bank` packs every song's sounds into bank D (presets
   097-128); songs select them by Program Change.
 - Song modules: per-part sound, tracks, velocity, expression (CC 11),

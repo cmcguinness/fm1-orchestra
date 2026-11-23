@@ -21,7 +21,7 @@ from fm1.effects import (IDENTITY_REQUEST, REVERB_SPACES, effect_messages,
 from fm1.player import play, release_all, schedule, select_tracks, track_summary
 from fm1.record import DEFAULT_DEVICE as RECORD_DEVICE, Recorder, RecordError, check_ready
 from fm1.port import DEFAULT_PORT_HINT, PortNotFound, open_input, open_output
-from fm1.sounds import NAMED, expand
+from fm1.sounds import NAMED, REJECTED, expand
 from fm1.voices import VOICES
 
 CODE = Path(__file__).resolve().parent          # fm1-orchestra/
@@ -122,6 +122,8 @@ def build_parser() -> argparse.ArgumentParser:
     pa = sub.add_parser("patches", help="list or search the .syx patch library")
     pa.add_argument("search", nargs="?", help="case-insensitive name substring")
     pa.add_argument("--bank", help="only this bank (file name without .syx)")
+    pa.add_argument("--hide-rejected", action="store_true",
+                    help="leave out patches rejected by ear (fm1/sounds.py REJECTED)")
 
     sp = sub.add_parser("send-patch",
                         help="send a library patch to the edit buffer of the part selected on the FM-1")
@@ -334,8 +336,17 @@ def cmd_patches(args) -> None:
         patches = [p for p in patches if p.source.stem.lower() == args.bank.lower()]
     if args.search:
         patches = [p for p in patches if args.search.lower() in p.name.lower()]
+    if args.hide_rejected:
+        patches = [p for p in patches if p.ref.lower() not in REJECTED]
     for p in patches:
-        print(f"{p.ref:16} {p.name}")
+        flags = []
+        shift = p.vced[144] - 24                    # the voice's transpose byte, 24 = none
+        if shift:
+            flags.append(f"transpose {shift:+d}: add ,transpose=24 to play it at pitch")
+        note = REJECTED.get(p.ref.lower())
+        if note:
+            flags.append(f"rejected: {note}")
+        print(f"{p.ref:16} {p.name}" + "".join(f"   [{f}]" for f in flags))
     print(f"{len(patches)} patch(es)", file=sys.stderr)
 
 

@@ -16,6 +16,14 @@ NAMED = {
 }
 
 
+# Patches rejected by ear: `patches` marks them, and they aren't offered as
+# audition candidates. They still play if asked for by name.
+REJECTED = {
+    "atsu_5:17": "GRAND PIAN: horrible (Georgia on My Mind auditions, 2026-11-23)",
+    "sjsu-e:30": "STAR RIDE: horrible (Georgia on My Mind auditions, 2026-11-23)",
+}
+
+
 def expand(spec: str, edits: list[str]) -> tuple[str, list[str]]:
     """A named sound -> (BANK:N, its edits + `edits`); anything else unchanged."""
     if spec.lower() in NAMED:
