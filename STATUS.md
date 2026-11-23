@@ -18,7 +18,7 @@ the result from the FM-1's USB audio, and make a slide-show video of it.
   may not redistribute and `fm1-bank.json`, the record of the song bank.
 
 Run from the root: `.venv/bin/python fm1-orchestra/fm1ctl.py ...`;
-`pytest` (40 tests, no hardware needed).
+`pytest` (48 tests, no hardware needed).
 
 ## Songs
 | Song | Source | Video |
@@ -42,6 +42,8 @@ modules yet.
 - Recording from FM-1 Audio (sounddevice), trimmed and normalised; `--stems`
   records each part alone and mixes them panned (the FM-1 ignores CC 10);
   `--remix` re-pans saved stems without the synth.
+- Live playing: `play-keys` passes a MIDI keyboard on the Mac through to one
+  FM-1 part, with a song part's sound or any patch.
 - Videos: `fm1ctl.py video NAME` (Pillow + ffmpeg; title, bullets, table and
   QR-code slides) over `build/NAME.wav`.
 

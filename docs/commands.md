@@ -34,6 +34,7 @@ FM-1 connected by USB.
 | `patches [SEARCH]` | Search the DX7 library in `fm1-orchestra/sysex/` (7,296 voices) |
 | `send-patch BANK:N`, `send-voice NAME` | Send one sound to the part selected on the unit |
 | `reverb room\|hall\|plate\|off` | Set the FM-1's reverb |
+| `play-keys` | Play the FM-1 live from a MIDI keyboard plugged into the Mac (see below) |
 | `panic`, `note` | Release every note on every channel; play a test chord |
 
 `play` and `song` also take `--start`, `--end`, `--speed`, `--transpose`,
@@ -46,6 +47,26 @@ their start points are kept beside `FILE`, in `<FILE name>-stems/`, for re-mixin
 A **sound** is a library patch `BANK:N` (see `patches`), optionally with field
 edits, e.g. `dxoc12:21,op1.r1=80,op3.out=0`. A built-in voice name
 (`fm1ctl.py voices`) also works.
+
+## Playing from a keyboard
+
+The FM-1 can't host a USB keyboard, so `play-keys` passes the keyboard's notes
+on from the Mac until you press ctrl-C, then releases anything still sounding.
+
+```sh
+fm1ctl.py play-keys --keyboard LPK25                              # part 1, its current sound
+fm1ctl.py play-keys --keyboard LPK25 --sound rom1a:11 --channel 2 # E.PIANO 1 on part 2
+fm1ctl.py play-keys --keyboard LPK25 --song aquarium --part 1     # a song part's sound and level
+```
+
+`--keyboard` is part of the input's name (see `ports`); it can be left out when
+the keyboard is the only MIDI input besides the FM-1. Whatever channel the
+keyboard sends on, the notes go to `--channel`. A sound in the song bank is
+picked by Program Change, so it works on any part; any other sound is sent to
+the part selected on the unit. `--transpose`, `--reverb` and `--show` (print
+what's sent) also work. Notes, the sustain pedal, the mod wheel, pitch bend,
+aftertouch and program changes pass; other CCs don't, since they could change
+the FM-1's effects.
 
 ## Options for every command
 

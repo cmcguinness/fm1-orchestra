@@ -15,6 +15,7 @@ from fm1 import dx7, syx
 from fm1 import bank as bank_mod
 from fm1 import song as song_mod
 from fm1 import stems as stems_mod
+from fm1.keys import KeyRouter, pick_keyboard
 from fm1.effects import (IDENTITY_REQUEST, REVERB_SPACES, effect_messages,
                          firmware_version, parse_identity)
 from fm1.player import play, release_all, schedule, select_tracks, track_summary
@@ -204,6 +205,29 @@ def build_parser() -> argparse.ArgumentParser:
 
     tr = sub.add_parser("tracks", help="list the tracks in a MIDI file")
     tr.add_argument("file", type=_midi_file)
+
+    pk = sub.add_parser("play-keys",
+                        help="play the FM-1 live from a MIDI keyboard plugged into the Mac")
+    pk.add_argument("--keyboard", metavar="NAME",
+                    help="part of the keyboard's MIDI input name (default: the only "
+                         "input that isn't the FM-1; see `ports`)")
+    pk.add_argument("--channel", type=_channel,
+                    help="FM-1 part to play, by its MIDI Ch (default: the --song part's, else 1)")
+    ks = pk.add_mutually_exclusive_group()
+    ks.add_argument("--sound", metavar="SOUND",
+                    help="pick this sound first: a built-in voice or BANK:N[,edits]. From "
+                         "the song bank by Program Change if it's there, else sent to the "
+                         "part selected on the unit")
+    ks.add_argument("--song", metavar="NAME",
+                    help="use a song part's sound, level, velocity and transpose (with --part)")
+    pk.add_argument("--part", type=_channel, metavar="CH",
+                    help="with --song: the part on this MIDI channel (default: its first part)")
+    pk.add_argument("--transpose", type=int, default=0, help="semitones (added to the part's)")
+    pk.add_argument("--reverb", choices=[*REVERB_SPACES, "off"],
+                    help="set reverb first (default: the --song's reverb, else leave it)")
+    pk.add_argument("--reverb-decay", type=_percent, default=92, help="0-100 (default %(default)s)")
+    pk.add_argument("--reverb-mix", type=_percent, default=50, help="0-100 (default %(default)s)")
+    pk.add_argument("--show", action="store_true", help="print each message passed on")
     return p
 
 
@@ -690,12 +714,94 @@ def cmd_tracks(args) -> None:
         print(f"{index:3}  {name or '(unnamed)':28} {notes:5} notes")
 
 
+def _keys_part(args) -> tuple[song_mod.Part, song_mod.Reverb | None]:
+    """The part to play from --song/--part, or a plain one from --sound."""
+    if args.part and not args.song:
+        sys.exit("--part needs --song")
+    if not args.song:
+        sound, *edits = [s.strip() for s in args.sound.split(",")] if args.sound else [None]
+        return song_mod.Part(channel=args.channel or 1, tracks=[], sound=sound,
+                             edits=dict(e.split("=", 1) for e in edits if "=" in e)), None
+    path = song_mod.song_path(_song_folder(args, args.song), args.song)
+    if not path.is_file():
+        names = ", ".join(p.stem for p in _song_files(args)) or "none"
+        sys.exit(f"no song module {path}; songs: {names}")
+    try:
+        song, _ = song_mod.load_module(path)
+    except Exception as exc:                    # a song file is user code
+        sys.exit(f"{path.name}: {exc}")
+    parts = [p for p in song.parts if args.part in (None, p.channel)]
+    if not parts:
+        sys.exit(f"{args.song} has no part on channel {args.part}; parts: "
+                 + ", ".join(str(p.channel) for p in song.parts))
+    part = parts[0]
+    if args.channel:
+        part.channel = args.channel
+    return part, song.reverb
+
+
+def cmd_play_keys(args) -> None:
+    try:
+        keyboard = pick_keyboard(mido.get_input_names(), args.keyboard, args.port)
+    except ValueError as exc:
+        sys.exit(str(exc))
+    if args.sound and any("=" not in e for e in args.sound.split(",")[1:]):
+        sys.exit(f"--sound edits look like op1.r1=80, got {args.sound!r}")
+    part, reverb = _keys_part(args)
+    if part.channel == args.fx_channel:
+        sys.exit(f"channel {part.channel} is the FM-1's Effect Ch; notes there light "
+                 "LEDs and CCs change effects. Pick another --channel")
+    if args.reverb:
+        reverb = song_mod.Reverb(args.reverb, args.reverb_decay, args.reverb_mix)
+    sound = program = None
+    if part.sound:
+        try:
+            sound = song_mod.resolve_sound(part.sound, part.edits,
+                                           lambda: _library(args.library))
+            bank = bank_mod.Manifest.load(BANK_MANIFEST)
+        except (ValueError, OSError) as exc:
+            sys.exit(str(exc))
+        program = bank.program(sound.key) if bank else None
+    router = KeyRouter(part.channel, part.transpose + args.transpose, part.velocity)
+    ch = part.channel - 1
+    with open_output(args.port) as out, mido.open_input(keyboard) as inp:
+        out.send(mido.Message("control_change", channel=ch, control=song_mod.EXPRESSION,
+                              value=part.expression))
+        if sound and program is not None:
+            out.send(mido.Message("program_change", channel=ch, program=program))
+            where = f"preset {program + 1:03}"
+        elif sound:
+            out.send(mido.Message("sysex", data=dx7.vced_sysex(sound.vced, ch)))
+            time.sleep(0.3)
+            where = ("sent to the part selected on the unit; it isn't in the song "
+                     "bank, so select the part on channel {} there".format(part.channel))
+        if reverb:
+            set_reverb(args.port, out, reverb.space, reverb.decay, reverb.mix, args.fx_channel)
+        label = f"{sound.label} ({where})" if sound else "the sound on the unit"
+        shift = f", {router.transpose:+d} st" if router.transpose else ""
+        print(f"{keyboard} -> FM-1 channel {part.channel}: {label}{shift}")
+        print("Play. Ctrl-C to stop.")
+        try:
+            for msg in inp:
+                for sent in router.translate(msg):
+                    out.send(sent)
+                    if args.show:
+                        print(" ", sent)
+        except KeyboardInterrupt:
+            print()
+        finally:
+            for msg in router.release():
+                out.send(msg)
+            release_all(out, [ch])
+
+
 COMMANDS = {
     "ports": cmd_ports, "identity": cmd_identity, "voices": cmd_voices,
     "send-voice": cmd_send_voice, "reverb": cmd_reverb, "note": cmd_note,
     "play": cmd_play, "tracks": cmd_tracks, "song": cmd_song, "songs": cmd_songs, "video": cmd_video,
     "load-bank": cmd_load_bank, "import-score": cmd_import_score,
     "patches": cmd_patches, "send-patch": cmd_send_patch, "panic": cmd_panic,
+    "play-keys": cmd_play_keys,
 }
 
 
