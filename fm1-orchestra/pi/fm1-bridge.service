@@ -1,0 +1,12 @@
+[Unit]
+Description=FM-1 keyboard bridge (USB MIDI keyboard -> M-VAVE FM-1)
+After=sound.target
+
+[Service]
+User=pi
+ExecStart=/usr/bin/python3 /home/pi/fm1-bridge/pi/fm1_bridge.py --channel 1
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

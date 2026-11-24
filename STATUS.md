@@ -46,7 +46,9 @@ modules yet.
   records each part alone and mixes them panned (the FM-1 ignores CC 10);
   `--remix` re-pans saved stems without the synth.
 - Live playing: `play-keys` passes a MIDI keyboard on the Mac through to one
-  FM-1 part, with a song part's sound or any patch.
+  FM-1 part, with a song part's sound or any patch. `pi/fm1_bridge.py` does
+  the same headless on a Raspberry Pi (pizerow01, systemd `fm1-bridge`,
+  `pi/deploy.sh`), reusing `fm1/keys.py`.
 - Videos: `fm1ctl.py video NAME` (Pillow + ffmpeg; title, bullets, table and
   QR-code slides) over `build/NAME.wav`.
 

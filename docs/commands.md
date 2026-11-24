@@ -82,6 +82,22 @@ what's sent) also work. Notes, the sustain pedal, the mod wheel, pitch bend,
 aftertouch and program changes pass; other CCs don't, since they could change
 the FM-1's effects.
 
+### Without the Mac: a Raspberry Pi bridge
+
+`fm1-orchestra/pi/fm1_bridge.py` does the same routing headless on a Pi with
+the keyboard and the FM-1 plugged into it (through a USB hub on a Pi Zero). It
+runs as the systemd service `fm1-bridge`, connects whenever both devices are
+present, and releases held notes if either is unplugged. It plays whatever
+sound the unit has on the part; load sounds from the Mac first.
+
+```sh
+pi/deploy.sh [HOST]              # from fm1-orchestra/: copy, install, restart (default pizerow01)
+ssh HOST journalctl -u fm1-bridge -f
+```
+
+Options (`--channel`, `--transpose`, `--velocity`, `--keyboard`, `--show`) go on
+the `ExecStart` line of `pi/fm1-bridge.service`.
+
 ## Options for every command
 
 These go **before** the command name, e.g.
